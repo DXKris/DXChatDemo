@@ -1,0 +1,34 @@
+//
+//  ChatDemo-Prefix.pch
+//  ChatDemo
+//
+//  Created by Xu Du on 2018/8/21.
+//  Copyright © 2018年 Xu Du. All rights reserved.
+//
+
+#ifndef ChatDemo_Prefix_pch
+#define ChatDemo_Prefix_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+#import <Masonry.h>
+#import "DXChatKit/DXChatManager.h"
+#import <MJExtension.h>
+
+/** 16进制颜色转换 */
+#define HexColor(rgbValue) HexColorWithAlpha(rgbValue, 1.0)
+#define HexColorWithAlpha(rgbValue, alphaValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0x00FF00) >> 8))/255.0 blue:((float)(rgbValue & 0x0000FF))/255.0 alpha:alphaValue]
+
+/** 随机颜色 */
+#define DXRandomColor random(arc4random_uniform(256), arc4random_uniform(256), arc4random_uniform(256), arc4random_uniform(256))
+#define random(r, g, b, a) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:(a)/255.0]
+
+/** 屏幕宽高 */
+#define DXScreenW [UIScreen mainScreen].bounds.size.width
+#define DXScreenH [UIScreen mainScreen].bounds.size.height
+
+/** weakSelf & strongSelf */
+#define DXWeakSelf __weak typeof(self) weakSelf = self;
+#define DXStrongSelf __strong typeof(self) strongSelf = weakSelf;
+
+#endif /* ChatDemo_Prefix_pch */

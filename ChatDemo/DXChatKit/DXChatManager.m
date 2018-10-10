@@ -54,7 +54,6 @@
             }];
         }
     }];
-    
 }
 
 #pragma mark - MQTTSessionDelegate

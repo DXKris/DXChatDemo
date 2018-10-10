@@ -75,6 +75,4 @@ typedef NS_ENUM(NSInteger, DXMessageType) {
 /** 昵称 */
 @property (nonatomic, copy) NSString *NickName;
 
-
-
 @end

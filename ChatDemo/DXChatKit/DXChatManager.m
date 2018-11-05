@@ -10,7 +10,9 @@
 
 #import <MQTTClient.h>
 
-#import "DXChatUserModel.h"
+#import "DXChatUser.h"
+#import "DXChatDBManager.h"
+#import "DXChatMessage.h"
 
 @interface DXChatManager ()<MQTTSessionDelegate>
 
@@ -32,20 +34,25 @@
 
 - (void)loginWithUsername:(NSString *)username password:(NSString *)password clientId:(NSString *)clientId {
     
-    DXChatUserModel *userModel = [DXChatUserModel new];
-    userModel.UserName = @"heyun";
-    userModel.Password = @"2006c565cde24095";
-    userModel.Type = DXChatUserModelTypeDoctor;
-    userModel.ConnectType = DXChatUserModelContentTypeCons;
+    [MQTTLog setLogLevel:DDLogLevelOff];
     
-    self.session.userName = userModel.mj_JSONString;
-    self.session.clientId = @"402880155ceedcda015ceef7bb9c000a";
+    [DXChatDBManager.share initDBWithUsername:nil];
+    
+    DXChatUser *user = [DXChatUser new];
+    user.UserName = @"yy1";
+    user.Password = @"65eda3bb2e4805c1";
+    user.Type = DXChatUserTypeDoctor;
+    user.ConnectType = DXChatUserContentTypeCons;
+    user.HzUserType = DXChatUserHzUserTypeMobile;
+    
+    self.session.userName = user.mj_JSONString;
+    self.session.clientId = @"40288581653cab8201653cc96f3a0039";
     
     [self.session connectWithConnectHandler:^(NSError *error) {
         if (error) {
-            
+
         }else {
-            [self.session subscribeToTopic:@"402880155ceedcda015ceef7bb9c000a" atLevel:MQTTQosLevelExactlyOnce subscribeHandler:^(NSError *error, NSArray<NSNumber *> *gQoss) {
+            [self.session subscribeToTopic:@"40288581653cab8201653cc96f3a0039" atLevel:MQTTQosLevelExactlyOnce subscribeHandler:^(NSError *error, NSArray<NSNumber *> *gQoss) {
                 if (error) {
                     NSLog(@"Subscription failed %@", error.localizedDescription);
                 } else {
@@ -58,15 +65,20 @@
 
 #pragma mark - MQTTSessionDelegate
 - (void)newMessage:(MQTTSession *)session data:(NSData *)data onTopic:(NSString *)topic qos:(MQTTQosLevel)qos retained:(BOOL)retained mid:(unsigned int)mid {
-    // New message received in topic
+    
     NSLog(@"--%@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+    
+    DXChatMessage *messge = [DXChatMessage mj_objectWithKeyValues:data];
+    [[DXChatDBManager share] insertChatMessage:messge];
+    
 }
 
 #pragma mark - Getter
 - (MQTTCFSocketTransport *)transport {
     if (_transport == nil) {
         _transport = [[MQTTCFSocketTransport alloc] init];
-        _transport.host = @"192.168.0.138";
+//        _transport.host = @"192.168.0.138";
+        _transport.host = @"172.16.95.129";
         _transport.port = 1883;
     }
     return _transport;

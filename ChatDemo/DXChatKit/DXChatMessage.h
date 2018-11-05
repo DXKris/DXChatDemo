@@ -14,9 +14,9 @@
  - DXChatTypeSingle: 单聊
  - DXChatTypeGroup: 群聊
  */
-typedef NS_ENUM(NSInteger, DXChatType) {
-    DXChatTypeSingle = 1,
-    DXChatTypeGroup
+typedef NS_ENUM(NSInteger, DXChatRoomType) {
+    DXChatRoomTypeSingle = 1,
+    DXChatRoomTypeGroup
 };
 
 /**
@@ -25,9 +25,9 @@ typedef NS_ENUM(NSInteger, DXChatType) {
  - DXMessageFromSend: 发出的消息
  - DXMessageFromReceive: 接收的消息
  */
-typedef NS_ENUM(NSInteger, DXMessageFrom) {
-    DXMessageFromSend = 1,
-    DXMessageFromReceive
+typedef NS_ENUM(NSInteger, DXChatMessageFrom) {
+    DXChatMessageFromSend = 1,
+    DXChatMessageFromReceive
 };
 
 
@@ -39,14 +39,14 @@ typedef NS_ENUM(NSInteger, DXMessageFrom) {
  - DXMessageTypeImage: 图片
  - DXMessageTypeReceipt: 回执
  */
-typedef NS_ENUM(NSInteger, DXMessageType) {
-    DXMessageTypeText = 1,
-    DXMessageTypeVoice = 2,
-    DXMessageTypeImage = 3,
-    DXMessageTypeReceipt = 10000
+typedef NS_ENUM(NSInteger, DXChatMessageType) {
+    DXChatMessageTypeText = 1,
+    DXChatMessageTypeVoice = 2,
+    DXChatMessageTypeImage = 3,
+    DXChatMessageTypeReceipt = 10000
 };
 
-@interface DXChatModel : NSObject
+@interface DXChatMessage : NSObject
 
 /** 消息ID(UUID+时间戳) */
 @property (nonatomic, copy) NSString *MessageID;
@@ -64,7 +64,7 @@ typedef NS_ENUM(NSInteger, DXMessageType) {
 @property (nonatomic, copy) NSString *DstUserID;
 
 /** 内容消息类型 */
-@property (nonatomic, assign) DXMessageType ContentType;
+@property (nonatomic, assign) DXChatMessageType ContentType;
 
 /** 消息ID(暂不用) */
 @property (nonatomic, copy) NSString *ContentID;
@@ -74,5 +74,10 @@ typedef NS_ENUM(NSInteger, DXMessageType) {
 
 /** 昵称 */
 @property (nonatomic, copy) NSString *NickName;
+
+/** 默认为0（单聊，群组聊天），手机及时会诊1，远程会诊2 */
+@property (nonatomic, assign) NSInteger HzChatType;
+
++ (NSString *)generateIdentifierWithMessage:(DXChatMessage *)message;
 
 @end

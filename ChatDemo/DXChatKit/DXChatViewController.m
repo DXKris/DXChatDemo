@@ -9,13 +9,18 @@
 #import "DXChatViewController.h"
 
 #import "DXChatInputView.h"
-
 #import "DXBaseChatCell.h"
+
+#import "DXChatMessage.h"
+#import "DXChatDBManager.h"
+
 
 @interface DXChatViewController ()<UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) DXChatInputView *inputView;
+
+@property (nonatomic, strong) NSMutableArray *dataSource;
 
 @end
 
@@ -27,9 +32,32 @@
     self.title = @"chat";
     self.view.backgroundColor = [UIColor whiteColor];
     
+    [self.inputView addMoreItemImageName:@"message_chat_pic" itemName:@"照片" click:^{
+        NSLog(@"照片");
+    }];
+    [self.inputView addMoreItemImageName:@"message_chat_case" itemName:@"病历" click:^{
+        NSLog(@"病历");
+    }];
+    [self.inputView addMoreItemImageName:@"message_chat_voice" itemName:@"语音" click:^{
+        NSLog(@"语音");
+    }];
+    [self.inputView addMoreItemImageName:@"message_chat_video" itemName:@"视频" click:^{
+        NSLog(@"视频");
+    }];
+    [self.inputView addMoreItemImageName:@"message_chat_video" itemName:@"视频" click:^{
+        NSLog(@"照片");
+    }];
+    
     [[DXChatManager share] loginWithUsername:nil password:nil clientId:nil];
     
+    [self _loadData];
     [self _setupUI];
+}
+
+- (void)_loadData {
+    NSArray *messages = [[DXChatDBManager share] queryChatMessages];
+    [self.dataSource addObjectsFromArray:messages];
+    [self.tableView reloadData];
 }
 
 - (void)_setupUI {
@@ -54,27 +82,32 @@
 
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 5;
+    return self.dataSource.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSString *rId = nil;
-    if (indexPath.row == 0) {
-        rId = @"DXChatTextCell_1_1";
-    }else if (indexPath.row == 1) {
-        rId = @"DXChatTextCell_1_2";
-    }else if (indexPath.row == 2) {
-        rId = @"DXChatTextCell_2_1";
-    }else if (indexPath.row == 3) {
-        rId = @"DXChatTextCell_2_2";
-    }else {
-        rId = @"DXChatImageCell_1_1";
-    }
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:rId];
+//    NSString *rId = nil;
+//    if (indexPath.row == 0) {
+//        rId = @"DXChatTextCell_1_1";
+//    }else if (indexPath.row == 1) {
+//        rId = @"DXChatTextCell_1_2";
+//    }else if (indexPath.row == 2) {
+//        rId = @"DXChatTextCell_2_1";
+//    }else if (indexPath.row == 3) {
+//        rId = @"DXChatTextCell_2_2";
+//    }else {
+//        rId = @"DXChatImageCell_1_1";
+//    }
+    DXChatMessage *message = self.dataSource[indexPath.row];
+    NSString *identifier = [DXChatMessage generateIdentifierWithMessage:message];
+    DXBaseChatCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     if (cell == nil) {
-        Class class = NSClassFromString([rId componentsSeparatedByString:@"_"].firstObject);
-        cell = [[class alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:rId];
+        Class class = NSClassFromString([identifier componentsSeparatedByString:@"_"].firstObject);
+        cell = [[class alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
     }
+    
+    [cell loadData:message];
+    
     return cell;
 }
 
@@ -103,6 +136,13 @@
         _inputView = [DXChatInputView new];
     }
     return _inputView;
+}
+
+- (NSMutableArray *)dataSource {
+    if (!_dataSource) {
+        _dataSource = [NSMutableArray array];
+    }
+    return _dataSource;
 }
 
 @end

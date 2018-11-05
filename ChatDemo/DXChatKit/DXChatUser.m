@@ -6,8 +6,8 @@
 //  Copyright © 2018年 Xu Du. All rights reserved.
 //
 
-#import "DXChatUserModel.h"
+#import "DXChatUser.h"
 
-@implementation DXChatUserModel
+@implementation DXChatUser
 
 @end

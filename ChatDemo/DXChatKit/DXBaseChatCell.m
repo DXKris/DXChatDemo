@@ -44,11 +44,11 @@
         make.size.mas_equalTo(CGSizeMake(40, 40));
         
         switch (self.messageFrom) {
-            case DXMessageFromSend: {
+            case DXChatMessageFromSend: {
                 make.right.equalTo(self.contentView).offset(-5);
             }
                 break;
-            case DXMessageFromReceive: {
+            case DXChatMessageFromReceive: {
                 make.left.equalTo(self.contentView).offset(5);
             }
                 break;
@@ -57,17 +57,17 @@
         }
     }];
     
-    if (self.chatType == DXChatTypeGroup) { //群聊添加名字
+    if (self.chatType == DXChatRoomTypeGroup) { //群聊添加名字
         [self.contentView addSubview:self.nameLabel];
         [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.headImageView);
             
             switch (self.messageFrom) {
-                case DXMessageFromSend: {
+                case DXChatMessageFromSend: {
                     make.right.equalTo(self.headImageView.mas_left).offset(-10);
                 }
                     break;
-                case DXMessageFromReceive: {
+                case DXChatMessageFromReceive: {
                     make.left.equalTo(self.headImageView.mas_right).offset(10);
                 }
                     break;
@@ -83,12 +83,12 @@
         make.width.height.greaterThanOrEqualTo(self.headImageView);
         
         switch (self.messageFrom) {
-            case DXMessageFromSend: {
+            case DXChatMessageFromSend: {
                 make.right.equalTo(self.headImageView.mas_left).offset(-5);
                 make.left.greaterThanOrEqualTo(self.contentView).offset(40);
             }
                 break;
-            case DXMessageFromReceive: {
+            case DXChatMessageFromReceive: {
                 make.left.equalTo(self.headImageView.mas_right).offset(5);
                 make.right.lessThanOrEqualTo(self.contentView).offset(-40);
             }
@@ -98,12 +98,12 @@
         }
         
         switch (self.chatType) {
-            case DXChatTypeSingle: {
+            case DXChatRoomTypeSingle: {
                 make.top.equalTo(self.headImageView);
                 
             }
                 break;
-            case DXChatTypeGroup: {
+            case DXChatRoomTypeGroup: {
                 make.top.equalTo(self.nameLabel.mas_bottom).offset(5);
             }
                 break;
@@ -116,6 +116,10 @@
     [self.bgImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.mas_equalTo(UIEdgeInsetsZero);
     }];
+}
+
+- (void)loadData:(DXChatMessage *)message {
+    self.nameLabel.text = message.SrcUserID;
 }
 
 #pragma mark - Getter
@@ -145,7 +149,7 @@
 
 - (UIImageView *)bgImageView {
     if (_bgImageView == nil) {
-        _bgImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@", self.messageFrom == DXMessageFromSend ? @"chat_bg_right" : @"chat_bg_left"]]];
+        _bgImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@", self.messageFrom == DXChatMessageFromSend ? @"chat_bg_right" : @"chat_bg_left"]]];
     }
     return _bgImageView;
 }

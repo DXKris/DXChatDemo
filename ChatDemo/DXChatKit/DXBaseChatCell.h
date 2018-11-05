@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-#import "DXChatModel.h"
+#import "DXChatMessage.h"
 
 @interface DXBaseChatCell : UITableViewCell
 
@@ -16,11 +16,13 @@
 @property (nonatomic, strong) UIImageView *bgImageView;
 
 /** 聊天类型(单聊或群聊) */
-@property (nonatomic, assign) DXChatType chatType;
+@property (nonatomic, assign) DXChatRoomType chatType;
 
 /** 消息来源(接收或发送) */
-@property (nonatomic, assign) DXMessageFrom messageFrom;
+@property (nonatomic, assign) DXChatMessageFrom messageFrom;
 
 - (void)addAndLayoutSubviews;
+
+- (void)loadData:(DXChatMessage *)message;
 
 @end

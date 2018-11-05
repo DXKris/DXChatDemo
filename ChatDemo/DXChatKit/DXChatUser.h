@@ -13,9 +13,9 @@
  - DXChatUserModelTypePatient: 患者
  - DXChatUserModelTypeDoctor: 医生
  */
-typedef NS_ENUM(NSInteger, DXChatUserModelType) {
-    DXChatUserModelTypePatient = 0,
-    DXChatUserModelTypeDoctor = 1
+typedef NS_ENUM(NSInteger, DXChatUserType) {
+    DXChatUserTypePatient = 0,
+    DXChatUserTypeDoctor = 1
 };
 
 
@@ -25,9 +25,9 @@ typedef NS_ENUM(NSInteger, DXChatUserModelType) {
  - DXChatUserModelContentTypeNormal: 普通连接
  - DXChatUserModelContentTypeCons: 会诊连接
  */
-typedef NS_ENUM(NSInteger, DXChatUserModelContentType) {
-    DXChatUserModelContentTypeNormal = 0,
-    DXChatUserModelContentTypeCons = 1
+typedef NS_ENUM(NSInteger, DXChatUserContentType) {
+    DXChatUserContentTypeNormal = 0,
+    DXChatUserContentTypeCons = 1
 };
 
 
@@ -37,12 +37,12 @@ typedef NS_ENUM(NSInteger, DXChatUserModelContentType) {
  - DXChatUserModelHzUserTypeMobile: 手机
  - DXChatUserModelHzUserTypePC: PC
  */
-typedef NS_ENUM(NSInteger, DXChatUserModelHzUserType) {
-    DXChatUserModelHzUserTypeMobile = 0,
-    DXChatUserModelHzUserTypePC = 1
+typedef NS_ENUM(NSInteger, DXChatUserHzUserType) {
+    DXChatUserHzUserTypeMobile = 0,
+    DXChatUserHzUserTypePC = 1
 };
 
-@interface DXChatUserModel : NSObject
+@interface DXChatUser : NSObject
 
 /** 用户名 */
 @property (nonatomic, copy) NSString *UserName;
@@ -51,15 +51,15 @@ typedef NS_ENUM(NSInteger, DXChatUserModelHzUserType) {
 @property (nonatomic, copy) NSString *Password;
 
 /** 用户类型 */
-@property (nonatomic, assign) DXChatUserModelType Type;
+@property (nonatomic, assign) DXChatUserType Type;
 
 /** 连接类型 */
-@property (nonatomic, assign) DXChatUserModelContentType ConnectType;
+@property (nonatomic, assign) DXChatUserContentType ConnectType;
 
 /** 用户和MQTT的连接ID */
 @property (nonatomic, copy) NSString *ClientId;
 
 /** 会诊用户类型 */
-@property (nonatomic, assign) DXChatUserModelHzUserType HzUserType;
+@property (nonatomic, assign) DXChatUserHzUserType HzUserType;
 
 @end

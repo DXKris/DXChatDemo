@@ -10,4 +10,5 @@ target 'ChatDemo' do
   pod 'Masonry', '~> 1.1.0'
   pod 'MQTTClient', '~> 0.15.2'
   pod 'MJExtension', '~> 3.0.13'
+  pod 'FMDB', '~> 2.7.2'
 end

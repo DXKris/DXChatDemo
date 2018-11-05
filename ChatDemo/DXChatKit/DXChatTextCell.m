@@ -28,12 +28,12 @@ static CGFloat const OutsideMargin = 6.0;//气泡图片那个小尖尖的宽度
         make.bottom.equalTo(self.chatBgView).offset(-TextMargin);
         
         switch (self.messageFrom) {
-            case DXMessageFromSend: {
+            case DXChatMessageFromSend: {
                 make.left.equalTo(self.chatBgView).offset(TextMargin);
                 make.right.equalTo(self.chatBgView).offset(-(TextMargin + OutsideMargin));
             }
                 break;
-            case DXMessageFromReceive: {
+            case DXChatMessageFromReceive: {
                 make.left.equalTo(self.chatBgView).offset(TextMargin + OutsideMargin);
                 make.right.equalTo(self.chatBgView).offset(-TextMargin);
             }
@@ -42,6 +42,11 @@ static CGFloat const OutsideMargin = 6.0;//气泡图片那个小尖尖的宽度
                 break;
         }
     }];
+}
+
+- (void)loadData:(DXChatMessage *)message {
+    [super loadData:message];
+    self.chatTextLabel.text = message.Content;
 }
 
 #pragma mark - Getter

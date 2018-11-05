@@ -10,4 +10,8 @@
 
 @interface DXMoreView : UIView
 
+@property (nonatomic, copy) NSArray *moreItems;
+
+@property (nonatomic, copy) void(^moreItemClickBlock)(NSIndexPath *indexPath);
+
 @end

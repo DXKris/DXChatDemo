@@ -10,6 +10,7 @@
 
 #import "DXMoreCollectionCell.h"
 
+#import "DXMoreViewItem.h"
 
 @interface DXMoreView ()<UICollectionViewDataSource, UICollectionViewDelegate>
 
@@ -24,7 +25,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor = [UIColor orangeColor];
+//        self.backgroundColor = [UIColor orangeColor];
         
         [self addSubview:self.collectionView];
         [self.collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -36,13 +37,27 @@
 
 #pragma mark - UICollectionViewDataSource
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return 8;
+    return self.moreItems.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    DXMoreViewItem *item = self.moreItems[indexPath.item];
+    
     DXMoreCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([DXMoreCollectionCell class]) forIndexPath:indexPath];
-    cell.nameLabel.text = [NSString stringWithFormat:@"%ld", indexPath.row];
+    cell.itemImageView.image = [UIImage imageNamed:item.itemImageName];
+    cell.nameLabel.text = item.itemName;
     return cell;
+}
+
+#pragma mark - UICollectionViewDelegate
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    DXMoreViewItem *item = self.moreItems[indexPath.item];
+    if (item.click) {
+        item.click();
+    }
+    
 }
 
 #pragma mark - Getter
@@ -68,6 +83,12 @@
 //        _flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     }
     return _flowLayout;
+}
+
+#pragma mark - setter
+- (void)setMoreItems:(NSArray *)moreItems {
+    _moreItems = moreItems;
+    [self.collectionView reloadData];
 }
 
 @end

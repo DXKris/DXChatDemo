@@ -15,7 +15,7 @@ CGFloat const DXMoreCollectionCellH = 80.0;
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
+    
 }
 
 @end

@@ -10,10 +10,13 @@
 		016BF67B94B051E7D91CF03B /* libPods-ChatDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D3C7DB27CDFEF881E9A4596 /* libPods-ChatDemo.a */; };
 		2F2902842148E82700C0E41F /* DXChatManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F2902832148E82700C0E41F /* DXChatManager.m */; };
 		2F4EBFF9213FD4CF00433B5A /* DXBaseChatCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F4EBFF8213FD4CF00433B5A /* DXBaseChatCell.m */; };
+		2F53EF89218FE5EE00635D2E /* DXChatDBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F53EF88218FE5EE00635D2E /* DXChatDBManager.m */; };
+		2F53EF8C219015E400635D2E /* DXChatListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F53EF8B219015E400635D2E /* DXChatListViewController.m */; };
+		2F53EF9221904BFA00635D2E /* DXMoreViewItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F53EF9121904BFA00635D2E /* DXMoreViewItem.m */; };
 		2F58FFC3212CEF780062E885 /* DXChatToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F58FFC2212CEF780062E885 /* DXChatToolBar.m */; };
 		2F6BB7D921366E2600ACB814 /* DXMoreCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F6BB7D721366E2600ACB814 /* DXMoreCollectionCell.m */; };
 		2F6BB7DA21366E2600ACB814 /* DXMoreCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2F6BB7D821366E2600ACB814 /* DXMoreCollectionCell.xib */; };
-		2F794BEA214A515E0089E0EB /* DXChatUserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F794BE9214A515E0089E0EB /* DXChatUserModel.m */; };
+		2F794BEA214A515E0089E0EB /* DXChatUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F794BE9214A515E0089E0EB /* DXChatUser.m */; };
 		2F94E2DD212FE522004FD57F /* DXFaceView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F94E2DC212FE522004FD57F /* DXFaceView.m */; };
 		2F94E2E0212FE52B004FD57F /* DXMoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F94E2DF212FE52B004FD57F /* DXMoreView.m */; };
 		2FE7F9F12123B62F00C680CE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FE7F9F02123B62F00C680CE /* AppDelegate.m */; };
@@ -25,7 +28,7 @@
 		2FE856F6212C035A006E74AE /* DXChatInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FE856F5212C035A006E74AE /* DXChatInputView.m */; };
 		2FFAB6F921421E2700844AA8 /* DXChatImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FFAB6F821421E2700844AA8 /* DXChatImageCell.m */; };
 		2FFE0D342141157C004489C1 /* DXChatTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FFE0D332141157C004489C1 /* DXChatTextCell.m */; };
-		2FFE0D372141241E004489C1 /* DXChatModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FFE0D362141241E004489C1 /* DXChatModel.m */; };
+		2FFE0D372141241E004489C1 /* DXChatMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FFE0D362141241E004489C1 /* DXChatMessage.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,13 +36,19 @@
 		2F2902832148E82700C0E41F /* DXChatManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DXChatManager.m; sourceTree = "<group>"; };
 		2F4EBFF7213FD4CF00433B5A /* DXBaseChatCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DXBaseChatCell.h; sourceTree = "<group>"; };
 		2F4EBFF8213FD4CF00433B5A /* DXBaseChatCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DXBaseChatCell.m; sourceTree = "<group>"; };
+		2F53EF87218FE5EE00635D2E /* DXChatDBManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DXChatDBManager.h; sourceTree = "<group>"; };
+		2F53EF88218FE5EE00635D2E /* DXChatDBManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DXChatDBManager.m; sourceTree = "<group>"; };
+		2F53EF8A219015E400635D2E /* DXChatListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DXChatListViewController.h; sourceTree = "<group>"; };
+		2F53EF8B219015E400635D2E /* DXChatListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DXChatListViewController.m; sourceTree = "<group>"; };
+		2F53EF9021904BFA00635D2E /* DXMoreViewItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DXMoreViewItem.h; sourceTree = "<group>"; };
+		2F53EF9121904BFA00635D2E /* DXMoreViewItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DXMoreViewItem.m; sourceTree = "<group>"; };
 		2F58FFC1212CEF780062E885 /* DXChatToolBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DXChatToolBar.h; sourceTree = "<group>"; };
 		2F58FFC2212CEF780062E885 /* DXChatToolBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DXChatToolBar.m; sourceTree = "<group>"; };
 		2F6BB7D621366E2600ACB814 /* DXMoreCollectionCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DXMoreCollectionCell.h; sourceTree = "<group>"; };
 		2F6BB7D721366E2600ACB814 /* DXMoreCollectionCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DXMoreCollectionCell.m; sourceTree = "<group>"; };
 		2F6BB7D821366E2600ACB814 /* DXMoreCollectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DXMoreCollectionCell.xib; sourceTree = "<group>"; };
-		2F794BE8214A515E0089E0EB /* DXChatUserModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DXChatUserModel.h; sourceTree = "<group>"; };
-		2F794BE9214A515E0089E0EB /* DXChatUserModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DXChatUserModel.m; sourceTree = "<group>"; };
+		2F794BE8214A515E0089E0EB /* DXChatUser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DXChatUser.h; sourceTree = "<group>"; };
+		2F794BE9214A515E0089E0EB /* DXChatUser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DXChatUser.m; sourceTree = "<group>"; };
 		2F94E2DB212FE522004FD57F /* DXFaceView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DXFaceView.h; sourceTree = "<group>"; };
 		2F94E2DC212FE522004FD57F /* DXFaceView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DXFaceView.m; sourceTree = "<group>"; };
 		2F94E2DE212FE52B004FD57F /* DXMoreView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DXMoreView.h; sourceTree = "<group>"; };
@@ -61,8 +70,8 @@
 		2FFAB6F821421E2700844AA8 /* DXChatImageCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DXChatImageCell.m; sourceTree = "<group>"; };
 		2FFE0D322141157C004489C1 /* DXChatTextCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DXChatTextCell.h; sourceTree = "<group>"; };
 		2FFE0D332141157C004489C1 /* DXChatTextCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DXChatTextCell.m; sourceTree = "<group>"; };
-		2FFE0D352141241E004489C1 /* DXChatModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DXChatModel.h; sourceTree = "<group>"; };
-		2FFE0D362141241E004489C1 /* DXChatModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DXChatModel.m; sourceTree = "<group>"; };
+		2FFE0D352141241E004489C1 /* DXChatMessage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DXChatMessage.h; sourceTree = "<group>"; };
+		2FFE0D362141241E004489C1 /* DXChatMessage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DXChatMessage.m; sourceTree = "<group>"; };
 		8D3C7DB27CDFEF881E9A4596 /* libPods-ChatDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ChatDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B32F59A7759D520182785745 /* Pods-ChatDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChatDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-ChatDemo/Pods-ChatDemo.release.xcconfig"; sourceTree = "<group>"; };
 		E2FF402B8049E510BFF1F933 /* Pods-ChatDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChatDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ChatDemo/Pods-ChatDemo.debug.xcconfig"; sourceTree = "<group>"; };
@@ -119,6 +128,8 @@
 			children = (
 				2FE856F0212BF0E7006E74AE /* DXChatViewController.h */,
 				2FE856F1212BF0E7006E74AE /* DXChatViewController.m */,
+				2F53EF8A219015E400635D2E /* DXChatListViewController.h */,
+				2F53EF8B219015E400635D2E /* DXChatListViewController.m */,
 				2FE856F4212C035A006E74AE /* DXChatInputView.h */,
 				2FE856F5212C035A006E74AE /* DXChatInputView.m */,
 				2F58FFC1212CEF780062E885 /* DXChatToolBar.h */,
@@ -127,6 +138,8 @@
 				2F94E2DC212FE522004FD57F /* DXFaceView.m */,
 				2F94E2DE212FE52B004FD57F /* DXMoreView.h */,
 				2F94E2DF212FE52B004FD57F /* DXMoreView.m */,
+				2F53EF9021904BFA00635D2E /* DXMoreViewItem.h */,
+				2F53EF9121904BFA00635D2E /* DXMoreViewItem.m */,
 				2F6BB7D621366E2600ACB814 /* DXMoreCollectionCell.h */,
 				2F6BB7D721366E2600ACB814 /* DXMoreCollectionCell.m */,
 				2F6BB7D821366E2600ACB814 /* DXMoreCollectionCell.xib */,
@@ -136,12 +149,14 @@
 				2FFE0D332141157C004489C1 /* DXChatTextCell.m */,
 				2FFAB6F721421E2700844AA8 /* DXChatImageCell.h */,
 				2FFAB6F821421E2700844AA8 /* DXChatImageCell.m */,
-				2FFE0D352141241E004489C1 /* DXChatModel.h */,
-				2FFE0D362141241E004489C1 /* DXChatModel.m */,
+				2FFE0D352141241E004489C1 /* DXChatMessage.h */,
+				2FFE0D362141241E004489C1 /* DXChatMessage.m */,
+				2F794BE8214A515E0089E0EB /* DXChatUser.h */,
+				2F794BE9214A515E0089E0EB /* DXChatUser.m */,
 				2F2902822148E82700C0E41F /* DXChatManager.h */,
 				2F2902832148E82700C0E41F /* DXChatManager.m */,
-				2F794BE8214A515E0089E0EB /* DXChatUserModel.h */,
-				2F794BE9214A515E0089E0EB /* DXChatUserModel.m */,
+				2F53EF87218FE5EE00635D2E /* DXChatDBManager.h */,
+				2F53EF88218FE5EE00635D2E /* DXChatDBManager.m */,
 			);
 			path = DXChatKit;
 			sourceTree = "<group>";
@@ -256,17 +271,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2F794BEA214A515E0089E0EB /* DXChatUserModel.m in Sources */,
+				2F794BEA214A515E0089E0EB /* DXChatUser.m in Sources */,
 				2FE856F2212BF0E7006E74AE /* DXChatViewController.m in Sources */,
 				2F58FFC3212CEF780062E885 /* DXChatToolBar.m in Sources */,
-				2FFE0D372141241E004489C1 /* DXChatModel.m in Sources */,
+				2FFE0D372141241E004489C1 /* DXChatMessage.m in Sources */,
 				2FFAB6F921421E2700844AA8 /* DXChatImageCell.m in Sources */,
 				2F94E2E0212FE52B004FD57F /* DXMoreView.m in Sources */,
 				2FE7F9FF2123B63000C680CE /* main.m in Sources */,
+				2F53EF89218FE5EE00635D2E /* DXChatDBManager.m in Sources */,
 				2F6BB7D921366E2600ACB814 /* DXMoreCollectionCell.m in Sources */,
 				2F94E2DD212FE522004FD57F /* DXFaceView.m in Sources */,
 				2F2902842148E82700C0E41F /* DXChatManager.m in Sources */,
+				2F53EF9221904BFA00635D2E /* DXMoreViewItem.m in Sources */,
 				2F4EBFF9213FD4CF00433B5A /* DXBaseChatCell.m in Sources */,
+				2F53EF8C219015E400635D2E /* DXChatListViewController.m in Sources */,
 				2FE7F9F12123B62F00C680CE /* AppDelegate.m in Sources */,
 				2FFE0D342141157C004489C1 /* DXChatTextCell.m in Sources */,
 				2FE856F6212C035A006E74AE /* DXChatInputView.m in Sources */,

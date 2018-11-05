@@ -12,6 +12,8 @@
 #import "DXFaceView.h"
 #import "DXMoreView.h"
 
+#import "DXMoreViewItem.h"
+
 static CGFloat const DXFaceViewHeight = 210.0;
 
 @interface DXChatInputView ()<DXChatToolBarDelegate>
@@ -186,6 +188,16 @@ static CGFloat const DXFaceViewHeight = 210.0;
     [self.toolBar initToolBar];
 }
 
+- (void)addMoreItemImageName:(NSString *)itemImageName itemName:(NSString *)itemName click:(void (^)(void))click {
+    NSMutableArray *tempArray = [NSMutableArray arrayWithArray:self.moreView.moreItems];
+    DXMoreViewItem *moreItem = [DXMoreViewItem new];
+    moreItem.itemImageName = itemImageName;
+    moreItem.itemName = itemName;
+    moreItem.click = click;
+    [tempArray addObject:moreItem];
+    self.moreView.moreItems = [tempArray copy];
+}
+
 #pragma mark - Getter
 - (DXChatToolBar *)toolBar {
     if (_toolBar == nil) {
@@ -206,7 +218,16 @@ static CGFloat const DXFaceViewHeight = 210.0;
 - (DXMoreView *)moreView {
     if (_moreView == nil) {
         _moreView = [DXMoreView new];
+        
         _moreView.hidden = YES;
+        
+        DXWeakSelf
+        [_moreView setMoreItemClickBlock:^(NSIndexPath *indexPath) {
+            DXStrongSelf
+            if (strongSelf.moreItemClickBlock) {
+                strongSelf.moreItemClickBlock(indexPath);
+            }
+        }];
     }
     return _moreView;
 }

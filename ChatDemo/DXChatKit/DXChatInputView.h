@@ -8,9 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-
 @interface DXChatInputView : UIView
 
+/** 更多item点击 */
+@property (nonatomic, copy) void(^moreItemClickBlock)(NSIndexPath *indexPath);
+
 - (void)initChatToolBar;
+
+- (void)addMoreItemImageName:(NSString *)itemImageName itemName:(NSString *)itemName click:(void(^)(void))click;
 
 @end

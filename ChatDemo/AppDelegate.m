@@ -7,7 +7,14 @@
 //
 
 #import "AppDelegate.h"
-#import "DXChatViewController.h"
+
+/**
+ 账号:
+ 4028808563ce66080163d409dd4a009f 5db0cbf19f10b759 wtl
+ 402880855d2fd9cc015d3a09fe320096 1714c47882a317c8 liuyuan
+ 40288581653cab8201653cc96f3a0039 65eda3bb2e4805c1 yy1
+ 40288581653cab8201653cc913780031 0bfc6c838923c4ed xx1
+ */
 
 @interface AppDelegate ()
 
@@ -18,16 +25,12 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:[[DXChatViewController alloc] init]];
-    nav.navigationBar.translucent = NO;
+    [[DXChatClient share].loginManger loginWithUsername:@"yy1" password:@"65eda3bb2e4805c1" clientId:@"40288581653cab8201653cc96f3a0039" complete:^(NSError *error) {
     
-    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    self.window.rootViewController = nav;
-    [self.window makeKeyAndVisible];
+    }];
     
     return YES;
 }
-
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

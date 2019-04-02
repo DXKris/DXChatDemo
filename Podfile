@@ -6,9 +6,11 @@ target 'ChatDemo' do
   # use_frameworks!
 
   # Pods for ChatDemo
-#  pod 'MQTTClient', '~> 0.15.0'
   pod 'Masonry', '~> 1.1.0'
   pod 'MQTTClient', '~> 0.15.2'
   pod 'MJExtension', '~> 3.0.13'
   pod 'FMDB', '~> 2.7.2'
+  pod 'TZImagePickerController', '~> 3.1.0'
+  pod 'AFNetworking', '~> 3.2.0'
+  pod 'SDWebImage', '~> 4.0'
 end

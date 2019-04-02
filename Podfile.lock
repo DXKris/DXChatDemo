@@ -1,4 +1,19 @@
 PODS:
+  - AFNetworking (3.2.1):
+    - AFNetworking/NSURLSession (= 3.2.1)
+    - AFNetworking/Reachability (= 3.2.1)
+    - AFNetworking/Security (= 3.2.1)
+    - AFNetworking/Serialization (= 3.2.1)
+    - AFNetworking/UIKit (= 3.2.1)
+  - AFNetworking/NSURLSession (3.2.1):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (3.2.1)
+  - AFNetworking/Security (3.2.1)
+  - AFNetworking/Serialization (3.2.1)
+  - AFNetworking/UIKit (3.2.1):
+    - AFNetworking/NSURLSession
   - FMDB (2.7.2):
     - FMDB/standard (= 2.7.2)
   - FMDB/standard (2.7.2)
@@ -12,26 +27,39 @@ PODS:
   - MQTTClient/Manager (0.15.2):
     - MQTTClient/Min
   - MQTTClient/Min (0.15.2)
+  - SDWebImage (4.4.2):
+    - SDWebImage/Core (= 4.4.2)
+  - SDWebImage/Core (4.4.2)
+  - TZImagePickerController (3.1.0)
 
 DEPENDENCIES:
+  - AFNetworking (~> 3.2.0)
   - FMDB (~> 2.7.2)
   - Masonry (~> 1.1.0)
   - MJExtension (~> 3.0.13)
   - MQTTClient (~> 0.15.2)
+  - SDWebImage (~> 4.0)
+  - TZImagePickerController (~> 3.1.0)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - AFNetworking
     - FMDB
     - Masonry
     - MJExtension
     - MQTTClient
+    - SDWebImage
+    - TZImagePickerController
 
 SPEC CHECKSUMS:
+  AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
   FMDB: 6198a90e7b6900cfc046e6bc0ef6ebb7be9236aa
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MJExtension: 19bc33ce2eee2d319760f5622562cf581a6ff756
   MQTTClient: 902c7bcac1501595f3d0b15178c7205b40331fb0
+  SDWebImage: 624d6e296c69b244bcede364c72ae0430ac14681
+  TZImagePickerController: c9584b67b97d5a20b4dbbb58505fa0b6be590255
 
-PODFILE CHECKSUM: e89e8883bdae9effd58c7e5108e4640371849226
+PODFILE CHECKSUM: ec592ca5b4de0c8da8931c5329d53227abdd3da5
 
 COCOAPODS: 1.5.3

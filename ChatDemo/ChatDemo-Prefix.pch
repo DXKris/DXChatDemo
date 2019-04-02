@@ -12,8 +12,10 @@
 // Include any system framework and library headers here that should be included in all compilation units.
 // You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
 #import <Masonry.h>
-#import "DXChatKit/DXChatManager.h"
 #import <MJExtension.h>
+#import "DXNetWorkManager.h"
+#import "DXChatKit/Client/DXChatClient.h"
+#import <SDWebImageManager.h>
 
 /** 16进制颜色转换 */
 #define HexColor(rgbValue) HexColorWithAlpha(rgbValue, 1.0)

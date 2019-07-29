@@ -52,12 +52,14 @@ typedef NS_ENUM(NSInteger, DXChatMessageType) {
  - DXChatMessageStatusSending: 发送中
  - DXChatMessageStatusSuccess: 发送成功
  - DXChatMessageStatusFailed: 发送失败
+ - DXChatMessageStatusUploadFailed: 上传文件失败
  */
 typedef NS_ENUM(NSInteger, DXChatMessageStatus) {
     DXChatMessageStatusReceive,
     DXChatMessageStatusSending,
     DXChatMessageStatusSuccess,
-    DXChatMessageStatusFailed
+    DXChatMessageStatusFailed,
+    DXChatMessageStatusUploadFailed
 };
 
 @interface DXChatMessage : NSObject
@@ -92,6 +94,9 @@ typedef NS_ENUM(NSInteger, DXChatMessageStatus) {
 /** 消息状态 */
 @property (nonatomic, assign) DXChatMessageStatus status;
 
+/** 是否已读(本地用) */
+@property (nonatomic, assign) BOOL isRead;
+
 /** 昵称 */
 //@property (nonatomic, copy) NSString *NickName;
 
@@ -107,6 +112,16 @@ typedef NS_ENUM(NSInteger, DXChatMessageStatus) {
  */
 + (NSString *)generateIdentifierWithMessage:(DXChatMessage *)message;
 
-+ (instancetype)messageWithContent:(NSString *)content srcUserId:(NSString *)srcUserId dstUserId:(NSString *)dstUserId contentType:(DXChatMessageType)contentType groupId:(NSString *)groupId;
+
+/**
+ 消息生成工厂方法
+
+ @param content 内容
+ @param sessionId 会话id
+ @param contentType 消息类型
+ @param chatRoomType 房间类型
+ @return 消息模型
+ */
++ (instancetype)messageWithContent:(NSString *)content sessionId:(NSString *)sessionId contentType:(DXChatMessageType)contentType chatRoomType:(DXChatRoomType)chatRoomType;
 
 @end

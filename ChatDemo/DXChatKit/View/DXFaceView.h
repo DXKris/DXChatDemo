@@ -8,6 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
+@class DXChatFaceManager;
+
+@protocol DXFaceViewDelegate <NSObject>
+
+- (void)selectFace:(NSString *)faceName;
+
+@end
+
 @interface DXFaceView : UIView
+
+@property (nonatomic, weak) id<DXFaceViewDelegate> delegate;
 
 @end

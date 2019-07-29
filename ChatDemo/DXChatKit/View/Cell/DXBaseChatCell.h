@@ -14,6 +14,8 @@
 
 - (void)tapCell:(DXBaseChatCell *)cell;
 
+- (void)tapSendFailButtonWithCell:(DXBaseChatCell *)cell;
+
 @end
 
 @interface DXBaseChatCell : UITableViewCell

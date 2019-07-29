@@ -53,8 +53,8 @@
 #pragma mark - Getter
 - (UIImageView *)voiceImageView {
     if (_voiceImageView == nil) {
-        _voiceImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"voice_3"]];
-        _voiceImageView.animationImages = @[[UIImage imageNamed:@"voice_1"], [UIImage imageNamed:@"voice_2"], [UIImage imageNamed:@"voice_3"]];
+        _voiceImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ChatImages.bundle/voice_3"]];
+        _voiceImageView.animationImages = @[[UIImage imageNamed:@"ChatImages.bundle/voice_1"], [UIImage imageNamed:@"ChatImages.bundle/voice_2"], [UIImage imageNamed:@"ChatImages.bundle/voice_3"]];
         _voiceImageView.contentMode = UIViewContentModeScaleAspectFit;
         
         _voiceImageView.animationDuration = 1;

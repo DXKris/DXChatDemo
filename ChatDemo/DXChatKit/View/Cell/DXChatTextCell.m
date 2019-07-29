@@ -8,6 +8,8 @@
 
 #import "DXChatTextCell.h"
 
+#import "DXChatFaceManager.h"
+
 static CGFloat const TextMargin = 12.0;
 static CGFloat const OutsideMargin = 6.0;//气泡图片那个小尖尖的宽度
 
@@ -46,7 +48,7 @@ static CGFloat const OutsideMargin = 6.0;//气泡图片那个小尖尖的宽度
 
 - (void)loadData:(DXChatMessage *)message {
     [super loadData:message];
-    self.chatTextLabel.text = message.Content;
+    self.chatTextLabel.attributedText = [[DXChatFaceManager share] getAttributedStringWithText:message.Content];
 }
 
 #pragma mark - Getter

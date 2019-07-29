@@ -13,6 +13,14 @@ typedef void (^DXChatLoginComplete)(NSError *error);
 
 @protocol DXChatLoginManager <NSObject>
 
+
+/**
+ 获取当前登录用户的clientId
+
+ @return clientId
+ */
+- (NSString *)getCurrentUserClientId;
+
 /**
  登录
  

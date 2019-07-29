@@ -26,7 +26,12 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     [[DXChatClient share].loginManger loginWithUsername:@"yy1" password:@"65eda3bb2e4805c1" clientId:@"40288581653cab8201653cc96f3a0039" complete:^(NSError *error) {
-    
+        
+//        DXChatMessage *message = [DXChatMessage messageWithContent:@"123" sessionId:@"40288581653cab8201653cc913780031" contentType:DXChatMessageTypeText chatRoomType:DXChatRoomTypeSingle];
+//        
+//        [[DXChatClient share].sessionManager insertMessage:message];
+//        [[DXChatClient share].messageManager sendMessage:message];
+        
     }];
     
     return YES;

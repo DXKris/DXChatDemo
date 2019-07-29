@@ -49,12 +49,6 @@
     [self _setupUI];
     [self _addMoreViewItems];
     [self _loadData];
-    
-    [DXNetWorkInstance postWithMethod:@"GetHistoryChatMessage" parameters:@{@"Type" : @(0)} success:^(id obj, NSString *successMsg) {
-        
-    } failure:^(NSError *error) {
-        
-    }];
 }
 
 - (void)tableViewScrollToBottom {
@@ -65,7 +59,7 @@
 
 - (void)_addMoreViewItems {
     DXWeakSelf
-    [self.inputView addMoreItemImageName:@"message_chat_pic" itemName:@"照片" click:^{
+    [self.inputView addMoreItemImageName:@"ChatImages.bundle/message_chat_pic" itemName:@"照片" click:^{
         DXStrongSelf
         
         TZImagePickerController *imagePickerVc = [[TZImagePickerController alloc] initWithMaxImagesCount:1 delegate:nil];
@@ -81,33 +75,39 @@
             
             DXChatFile *chatFile = [DXChatFile new];
             chatFile.FileName = fileName;
-            DXChatMessage *message = [DXChatMessage messageWithContent:chatFile.mj_JSONString srcUserId:@"40288581653cab8201653cc96f3a0039" dstUserId:@"40288581653cab8201653cc913780031" contentType:DXChatMessageTypeImage groupId:nil];
-            message.sessionId = message.DstUserID;
+            DXChatMessage *message = [DXChatMessage messageWithContent:chatFile.mj_JSONString sessionId:strongSelf.session.sessionId contentType:DXChatMessageTypeImage chatRoomType:strongSelf.session.chatRoomType];
             
             [strongSelf.dataSource addObject:message];
             [strongSelf.tableView reloadData];
             [strongSelf tableViewScrollToBottom];
             
             [[DXChatClient share].sessionManager insertMessage:message];
-            [[DXChatClient share].fileManager uploadFileWithMessage:message success:^(id obj) {
-                NSString *newContent = [DXChatFile mj_objectWithKeyValues:obj].mj_JSONString;
-                [[DXChatClient share].sessionManager updateLocalMessage:message content:newContent];
-                message.Content = newContent;
-                [[DXChatClient share].messageManager sendMessage:message];
-            } failed:^(NSError *error) {
-                message.status = DXChatMessageStatusFailed;
-                DXBaseChatCell *cell = [strongSelf.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:[strongSelf.dataSource indexOfObject:message] inSection:0]];
-                [cell loadData:message];
-                [[DXChatClient share].sessionManager updateLocalMessage:message sendStatus:DXChatMessageStatusFailed];
-            }];
+            [strongSelf _uploadAndSendFileWithMessage:message];
         }];
         [strongSelf presentViewController:imagePickerVc animated:YES completion:nil];
         
     }];
-    
-//    [self.inputView addMoreItemImageName:@"message_chat_video" itemName:@"视频" click:^{
-//        NSLog(@"照片");
-//    }];
+}
+
+- (void)_uploadAndSendFileWithMessage:(DXChatMessage *)message {
+    [[DXChatClient share].fileManager uploadFileWithMessage:message success:^(id obj) {
+        
+        DXChatFile *chatFile = [DXChatFile mj_objectWithKeyValues:obj];
+        
+        if (message.ContentType == DXChatMessageTypeVoice) {
+            chatFile.second = [DXChatFile mj_objectWithKeyValues:message.Content].second;
+        }
+        
+        NSString *newContent = chatFile.mj_JSONString;
+        [[DXChatClient share].sessionManager updateLocalMessage:message content:newContent];
+        message.Content = newContent;
+        [[DXChatClient share].messageManager sendMessage:message];
+    } failed:^(NSError *error) {
+        message.status = DXChatMessageStatusUploadFailed;
+        DXBaseChatCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:[self.dataSource indexOfObject:message] inSection:0]];
+        [cell loadData:message];
+        [[DXChatClient share].sessionManager updateLocalMessage:message sendStatus:DXChatMessageStatusUploadFailed];
+    }];
 }
 
 - (void)_loadData {
@@ -139,6 +139,9 @@
 
 #pragma mark - DXChatMessageManagerDelegate
 - (void)receiveMessage:(DXChatMessage *)message {
+    if (![message.sessionId isEqualToString:self.session.sessionId]) {
+        return;
+    }
     
     [self.dataSource addObject:message];
     [self.tableView reloadData];
@@ -229,6 +232,21 @@
     [self.player play];
 }
 
+- (void)tapSendFailButtonWithCell:(DXBaseChatCell *)cell {
+    DXChatMessage *sendFailMessage = self.dataSource[[self.tableView indexPathForCell:cell].row];
+    sendFailMessage.status = DXChatMessageStatusSending;
+    [cell loadData:sendFailMessage];
+    
+    [[DXChatClient share].sessionManager updateLocalMessage:sendFailMessage sendStatus:DXChatMessageStatusSending];
+    
+    //FIXME: 发送消息失败后续逻辑
+    if (sendFailMessage.status == DXChatMessageStatusUploadFailed) {
+        [self _uploadAndSendFileWithMessage:sendFailMessage];
+    }else {
+        [[DXChatClient share].messageManager sendMessage:sendFailMessage];
+    }
+}
+
 #pragma mark - AVAudioPlayerDelegate
 - (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag {
     [self.playingCell.voiceImageView stopAnimating];
@@ -237,8 +255,7 @@
 
 #pragma mark - DXChatInputViewDelegate
 - (void)sendText:(NSString *)text {
-    DXChatMessage *message = [DXChatMessage messageWithContent:text srcUserId:@"40288581653cab8201653cc96f3a0039" dstUserId:@"40288581653cab8201653cc913780031" contentType:DXChatMessageTypeText groupId:nil];
-    message.sessionId = message.DstUserID;
+    DXChatMessage *message = [DXChatMessage messageWithContent:text sessionId:self.session.sessionId contentType:DXChatMessageTypeText chatRoomType:self.session.chatRoomType];
     
     [self.dataSource addObject:message];
     [self.tableView reloadData];
@@ -254,29 +271,14 @@
     chatFile.FileName = fileName;
     chatFile.second = seconds;
     
-    DXChatMessage *message = [DXChatMessage messageWithContent:chatFile.mj_JSONString srcUserId:@"40288581653cab8201653cc96f3a0039" dstUserId:@"40288581653cab8201653cc913780031" contentType:DXChatMessageTypeVoice groupId:nil];
-    message.sessionId = message.DstUserID;
+    DXChatMessage *message = [DXChatMessage messageWithContent:chatFile.mj_JSONString sessionId:self.session.sessionId contentType:DXChatMessageTypeVoice chatRoomType:self.session.chatRoomType];
     
     [self.dataSource addObject:message];
     [self.tableView reloadData];
     [self tableViewScrollToBottom];
     
     [[DXChatClient share].sessionManager insertMessage:message];
-    [[DXChatClient share].fileManager uploadFileWithMessage:message success:^(id obj) {
-        
-        DXChatFile *newFile = [DXChatFile mj_objectWithKeyValues:obj];
-        newFile.second = seconds;
-        
-        NSString *newContent = newFile.mj_JSONString;
-        [[DXChatClient share].sessionManager updateLocalMessage:message content:newContent];
-        message.Content = newContent;
-        [[DXChatClient share].messageManager sendMessage:message];
-    } failed:^(NSError *error) {
-        message.status = DXChatMessageStatusFailed;
-        DXBaseChatCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:[self.dataSource indexOfObject:message] inSection:0]];
-        [cell loadData:message];
-        [[DXChatClient share].sessionManager updateLocalMessage:message sendStatus:DXChatMessageStatusFailed];
-    }];
+    [self _uploadAndSendFileWithMessage:message];
 }
 
 - (void)inputViewShow {

@@ -16,7 +16,7 @@
 
 static CGFloat const DXFaceViewHeight = 210.0;
 
-@interface DXChatInputView ()<DXChatToolBarDelegate>
+@interface DXChatInputView ()<DXChatToolBarDelegate, DXFaceViewDelegate>
 
 @property (nonatomic, strong) DXChatToolBar *toolBar;
 @property (nonatomic, strong) DXFaceView *faceView;
@@ -205,6 +205,11 @@ static CGFloat const DXFaceViewHeight = 210.0;
     }
 }
 
+#pragma mark - DXFaceViewDelegate
+- (void)selectFace:(NSString *)faceName {
+    [self.toolBar selectFace:faceName];
+}
+
 #pragma mark - Public
 - (void)initChatToolBar {
     [self.toolBar initToolBar];
@@ -232,6 +237,7 @@ static CGFloat const DXFaceViewHeight = 210.0;
 - (DXFaceView *)faceView {
     if (_faceView == nil) {
         _faceView = [DXFaceView new];
+        _faceView.delegate = self;
         _faceView.hidden = YES;
     }
     return _faceView;
@@ -240,7 +246,6 @@ static CGFloat const DXFaceViewHeight = 210.0;
 - (DXMoreView *)moreView {
     if (_moreView == nil) {
         _moreView = [DXMoreView new];
-        
         _moreView.hidden = YES;
     }
     return _moreView;

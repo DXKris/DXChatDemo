@@ -172,12 +172,7 @@
 
 - (UIImageView *)edgeImageView {
     if (!_edgeImageView) {
-//        _edgeImageView = [[UIImageView alloc]initWithImage:({
-//            NSString *imageName = @"chat_bar_record_circle";
-//            UIImage *image = [UIImage lcck_imageNamed:imageName bundleName:@"ChatKeyboard" bundleForClass:[self class]];
-//            image;})
-//                          ];
-        _edgeImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"chat_bar_record_circle"]];
+        _edgeImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ChatImages.bundle/chat_bar_record_circle"]];
         _edgeImageView.center =  CGPointMake([[UIScreen mainScreen] bounds].size.width/2,[[UIScreen mainScreen] bounds].size.height/2);
     }
     return _edgeImageView;

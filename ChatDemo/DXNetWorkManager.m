@@ -54,7 +54,7 @@ void CallFailureBlockOnMainQueue(FailureBlock failure, NSError *error) {
 
 - (void)postWithMethod:(NSString *)method parameters:(id)parameters success:(SuccessBlock)success failure:(FailureBlock)failure {
     
-    NSString *url = [NSString stringWithFormat:@"http://192.168.0.138/Home/%@", method];
+    NSString *url = [NSString stringWithFormat:@"http://192.168.0.5:17001/Home/%@", method];
     
     [self.sessionManager POST:url parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
@@ -80,8 +80,18 @@ void CallFailureBlockOnMainQueue(FailureBlock failure, NSError *error) {
     }];
 }
 
+- (void)chatPostWithMethod:(NSString *)method parameters:(id)parameters success:(SuccessBlock)success failure:(FailureBlock)failure {
+    NSString *url = [@"http://192.168.0.5:17001/Home" stringByAppendingPathComponent:method];
+    
+    [self.sessionManager POST:url parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        CallSuccessBlockOnMainQueue(success, responseObject, nil);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        CallFailureBlockOnMainQueue(failure, error);
+    }];
+}
+
 - (void)uploadFile:(NSObject *)file fileName:(NSString *)fileName uploadType:(DXUploadType)uploadType success:(SuccessBlock)success failure:(FailureBlock)failure {
-    NSString *url = @"http://192.168.0.138:57482/Home";
+    NSString *url = @"http://192.168.0.5:17001/Home";
     switch (uploadType) {
         case DXUploadTypeImage:
             url = [url stringByAppendingPathComponent:@"UploadImage"];

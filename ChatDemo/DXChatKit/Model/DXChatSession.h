@@ -18,7 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 /** 最后一条消息 */
 @property (nonatomic, strong) DXChatMessage *lastMessage;
 
-- (void)uploadFile:(id)file uploadType:(DXUploadType)uploadType sendMessage:(DXChatMessage *)message;
+/** 单聊或群聊 */
+@property (nonatomic, assign) DXChatRoomType chatRoomType;
 
 @end
 

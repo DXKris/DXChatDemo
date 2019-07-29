@@ -168,16 +168,23 @@
     }
 }
 
+#pragma mark - Actions
 - (void)tapCell {
     if (self.delegate && [self.delegate respondsToSelector:@selector(tapCell:)]) {
         [self.delegate tapCell:self];
     }
 }
 
+- (void)_tapSendFailImageView {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(tapSendFailButtonWithCell:)]) {
+        [self.delegate tapSendFailButtonWithCell:self];
+    }
+}
+
 #pragma mark - Getter
 - (UIImageView *)headImageView {
     if (_headImageView == nil) {
-        _headImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ic_yisheng"]];
+        _headImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ChatImages.bundle/ic_yisheng"]];
     }
     return _headImageView;
 }
@@ -204,7 +211,10 @@
 
 - (UIImageView *)bgImageView {
     if (_bgImageView == nil) {
-        _bgImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@", self.messageFrom == DXChatMessageFromSend ? @"chat_bg_right" : @"chat_bg_left"]]];
+        
+        UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"%@", self.messageFrom == DXChatMessageFromSend ? @"ChatImages.bundle/chat_bg_right" : @"ChatImages.bundle/chat_bg_left"]];
+        
+        _bgImageView = [[UIImageView alloc] initWithImage:[image resizableImageWithCapInsets:UIEdgeInsetsMake(image.size.height / 2, image.size.width / 2, image.size.height / 2 - 1, image.size.width / 2 - 1) resizingMode:UIImageResizingModeStretch]];
     }
     return _bgImageView;
 }
@@ -218,8 +228,11 @@
 
 - (UIImageView *)sendFailImageView {
     if (!_sendFailImageView) {
-        _sendFailImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"message_send_failed"]];
+        _sendFailImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ChatImages.bundle/message_send_failed"]];
         _sendFailImageView.hidden = YES;
+        
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(_tapSendFailImageView)];
+        [_sendFailImageView addGestureRecognizer:tap];
     }
     return _sendFailImageView;
 }

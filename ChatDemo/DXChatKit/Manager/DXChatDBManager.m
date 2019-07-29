@@ -44,8 +44,8 @@
     //[[self _getChatDBPath] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.db", clientId]]
     FMDatabase *database = [FMDatabase databaseWithPath:path];
     if ([database open]) {
-        [database executeUpdate:@"CREATE TABLE IF NOT EXISTS 'chat_message' ('message_id' TEXT PRIMARY KEY, 'date_time' INTEGER, 'from' TEXT, 'to' TEXT, 'group_id' TEXT, 'content_type' INTEGER, 'content' TEXT, 'session_id' TEXT, 'status' INTEGER);"];
-        [database executeUpdate:@"CREATE TABLE IF NOT EXISTS 'chat_session' ('session_id' TEXT PRIMARY KEY, 'last_message' TEXT);"];
+        [database executeUpdate:@"CREATE TABLE IF NOT EXISTS 'chat_message' ('message_id' TEXT PRIMARY KEY, 'date_time' INTEGER, 'from' TEXT, 'to' TEXT, 'group_id' TEXT, 'content_type' INTEGER, 'content' TEXT, 'session_id' TEXT, 'status' INTEGER, 'is_read' INTEGER);"];
+        [database executeUpdate:@"CREATE TABLE IF NOT EXISTS 'chat_session' ('session_id' TEXT PRIMARY KEY, 'last_message' TEXT, 'chat_room_type' INTEGER);"];
         self.database = database;
     }
 }
@@ -55,9 +55,14 @@
     DXChatSession *chatSession = [DXChatSession new];
     chatSession.sessionId = message.sessionId;
     chatSession.lastMessage = message;
+    chatSession.chatRoomType = message.GroupID.length == 0 ? DXChatRoomTypeSingle : DXChatRoomTypeGroup;
     [self _CreateOrUpdateChatSession:chatSession];
     
-    [self.database executeUpdate:@"INSERT INTO 'chat_message' ('message_id', 'date_time', 'from', 'to', 'group_id', 'content_type', 'content', 'session_id', 'status') VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);", message.MessageID, @(message.DateTime), message.SrcUserID, message.DstUserID, message.GroupID, @(message.ContentType), message.Content, message.sessionId, @(message.status)];
+    int count = [self.database intForQuery:@"SELECT COUNT(*) FROM chat_message WHERE message_id = ?;", message.MessageID];
+    
+    if (count == 0) { //不存在就插入
+        [self.database executeUpdate:@"INSERT INTO 'chat_message' ('message_id', 'date_time', 'from', 'to', 'group_id', 'content_type', 'content', 'session_id', 'status', 'is_read') VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);", message.MessageID, @(message.DateTime), message.SrcUserID, message.DstUserID, message.GroupID, @(message.ContentType), message.Content, message.sessionId, @(message.status), @(message.isRead)];
+    }
 }
 
 - (void)_CreateOrUpdateChatSession:(DXChatSession *)chatSession {
@@ -66,7 +71,7 @@
     
     if (count == 0) {
         //插入会话
-        [self.database executeUpdate:@"INSERT INTO chat_session (session_id, last_message) VALUES (?, ?);", chatSession.sessionId, chatSession.lastMessage.mj_JSONString];
+        [self.database executeUpdate:@"INSERT INTO chat_session (session_id, last_message, chat_room_type) VALUES (?, ?, ?);", chatSession.sessionId, chatSession.lastMessage.mj_JSONString, @(chatSession.chatRoomType)];
         
     }else {
         //更新会话
@@ -87,6 +92,7 @@
         DXChatSession *session = [DXChatSession new];
         session.sessionId = [resultSet stringForColumn:@"session_id"];
         session.lastMessage = [DXChatMessage mj_objectWithKeyValues:[resultSet stringForColumn:@"last_message"]];
+        session.chatRoomType = [resultSet longForColumn:@"chat_room_type"];
         [tempArray addObject:session];
     }
     return [tempArray copy];
@@ -98,14 +104,14 @@
     while ([resultSet next]) {
         DXChatMessage *message = [DXChatMessage new];
         message.MessageID = [resultSet stringForColumn:@"message_id"];
-        message.DateTime = [resultSet stringForColumn:@"date_time"].integerValue;
+        message.DateTime = [resultSet longForColumn:@"date_time"];
         message.SrcUserID = [resultSet stringForColumn:@"from"];
         message.DstUserID = [resultSet stringForColumn:@"to"];
         message.GroupID = [resultSet stringForColumn:@"group_id"];
-        message.ContentType = [resultSet stringForColumn:@"content_type"].integerValue;
+        message.ContentType = [resultSet longForColumn:@"content_type"];
         message.Content = [resultSet stringForColumn:@"content"];
         message.sessionId = [resultSet stringForColumn:@"session_id"];
-        message.status = [resultSet stringForColumn:@"status"].integerValue;
+        message.status = [resultSet longForColumn:@"status"];
         [tempArray addObject:message];
     }
     return [tempArray copy];

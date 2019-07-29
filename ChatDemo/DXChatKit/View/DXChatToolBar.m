@@ -142,12 +142,12 @@ static CGFloat const DXRecordBtnInset = 6;
         if (self.delegate && [self.delegate respondsToSelector:@selector(sendText:)]) {
             [self.delegate sendText:wipeSpaceStr];
         }
-        
         textView.text = nil;
         [self textViewDidChange:textView];
         return NO;
     }
     return YES;
+    
 }
 
 #pragma mark - RecordEvent
@@ -194,14 +194,14 @@ static CGFloat const DXRecordBtnInset = 6;
 
 - (void)_setRecordBtnNormal {
     UIEdgeInsets edgeInsets = UIEdgeInsetsMake(9, 9, 9, 9);
-    UIImage *voiceRecordButtonNormalBackgroundImage = [[UIImage imageNamed:@"record_btn_normal"] resizableImageWithCapInsets:edgeInsets resizingMode:UIImageResizingModeStretch];
+    UIImage *voiceRecordButtonNormalBackgroundImage = [[UIImage imageNamed:@"ChatImages.bundle/record_btn_normal"] resizableImageWithCapInsets:edgeInsets resizingMode:UIImageResizingModeStretch];
     [self.recordBtn setBackgroundImage:voiceRecordButtonNormalBackgroundImage forState:UIControlStateNormal];
     [_recordBtn setTitle:@"按住 说话" forState:UIControlStateNormal];
 }
 
 - (void)_setRecordBtnHighlight {
     UIEdgeInsets edgeInsets = UIEdgeInsetsMake(9, 9, 9, 9);
-    UIImage *voiceRecordButtonHighlightedBackgroundImage = [[UIImage imageNamed:@"record_btn_highlight"] resizableImageWithCapInsets:edgeInsets resizingMode:UIImageResizingModeStretch];
+    UIImage *voiceRecordButtonHighlightedBackgroundImage = [[UIImage imageNamed:@"ChatImages.bundle/record_btn_highlight"] resizableImageWithCapInsets:edgeInsets resizingMode:UIImageResizingModeStretch];
     [self.recordBtn setBackgroundImage:voiceRecordButtonHighlightedBackgroundImage forState:UIControlStateNormal];
     [_recordBtn setTitle:@"松开 结束" forState:UIControlStateNormal];
 }
@@ -275,6 +275,12 @@ static CGFloat const DXRecordBtnInset = 6;
     self.showType = DXChatToolBarShowTypeInit;
 }
 
+- (void)selectFace:(NSString *)faceName {
+    self.textView.text = [self.textView.text stringByAppendingFormat:@"[%@]", faceName];
+    [self.textView scrollRangeToVisible:self.textView.selectedRange];
+    [self textViewDidChange:self.textView];
+}
+
 #pragma mark - Setter
 - (void)setShowType:(DXChatToolBarShowType)showType {
     
@@ -314,8 +320,8 @@ static CGFloat const DXRecordBtnInset = 6;
 - (UIButton *)voiceBtn {
     if (_voiceBtn == nil) {
         _voiceBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_voiceBtn setImage:[UIImage imageNamed:@"ic_luying"] forState:UIControlStateNormal];
-        [_voiceBtn setImage:[UIImage imageNamed:@"ic_jianpang"] forState:UIControlStateSelected];
+        [_voiceBtn setImage:[UIImage imageNamed:@"ChatImages.bundle/ic_luying"] forState:UIControlStateNormal];
+        [_voiceBtn setImage:[UIImage imageNamed:@"ChatImages.bundle/ic_jianpang"] forState:UIControlStateSelected];
         [_voiceBtn addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _voiceBtn;
@@ -324,8 +330,8 @@ static CGFloat const DXRecordBtnInset = 6;
 - (UIButton *)faceBtn {
     if (_faceBtn == nil) {
         _faceBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_faceBtn setImage:[UIImage imageNamed:@"ic_biaoqing"] forState:UIControlStateNormal];
-        [_faceBtn setImage:[UIImage imageNamed:@"ic_jianpang"] forState:UIControlStateSelected];
+        [_faceBtn setImage:[UIImage imageNamed:@"ChatImages.bundle/ic_biaoqing"] forState:UIControlStateNormal];
+        [_faceBtn setImage:[UIImage imageNamed:@"ChatImages.bundle/ic_jianpang"] forState:UIControlStateSelected];
         [_faceBtn addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _faceBtn;
@@ -334,7 +340,7 @@ static CGFloat const DXRecordBtnInset = 6;
 - (UIButton *)moreBtn {
     if (_moreBtn == nil) {
         _moreBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_moreBtn setImage:[UIImage imageNamed:@"ic_genduo"] forState:UIControlStateNormal];
+        [_moreBtn setImage:[UIImage imageNamed:@"ChatImages.bundle/ic_genduo"] forState:UIControlStateNormal];
         [_moreBtn addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _moreBtn;

@@ -29,30 +29,6 @@
     return chatClient;
 }
 
-//#pragma mark - DXChatManagerDelegate
-//- (void)receiveMessage:(DXChatMessage *)message {
-//
-//    if (message.ContentType == DXChatMessageTypeReceipt) { //发送成功回执
-//        //更新消息状态
-//        [self.chatDbManager updateMessage:message status:DXChatMessageStatusSuccess];
-//        [[NSNotificationCenter defaultCenter] postNotificationName:DXChatSendMessageSuccessNotification object:nil userInfo:@{DXReceiveMessage : message}];
-//        return;
-//    }else { //发送已收到回执
-//        DXChatMessage *RecepitMessage = [DXChatMessage new];
-//        RecepitMessage.ContentType = DXChatMessageTypeReceipt;
-//        RecepitMessage.DateTime = message.DateTime;
-//        RecepitMessage.MessageID = message.MessageID;
-//        [self.chatManager sendMessage:RecepitMessage];
-//    }
-//
-//    message.sessionId = message.GroupID.length == 0 ? message.SrcUserID : message.GroupID;
-//    [self.chatDbManager insertChatMessage:message];
-//    [[NSNotificationCenter defaultCenter] postNotificationName:DXChatReceiveMessageNotification object:nil userInfo:@{DXReceiveMessage : message}];
-//
-//    extern NSString *DXChatSessionListRefreshNotification;
-//    [[NSNotificationCenter defaultCenter] postNotificationName:DXChatSessionListRefreshNotification object:nil];
-//}
-
 #pragma mark - Getter
 - (id<DXChatLoginManager>)loginManger {
     return self.chatManager;

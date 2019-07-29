@@ -11,6 +11,10 @@
 		2F01AAC92244BA0900912160 /* lame.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FD7FE8221928481009A452C /* lame.framework */; };
 		2F0F96D921919B2500F744B9 /* DXRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F0F96D821919B2500F744B9 /* DXRecord.m */; };
 		2F0F96DC2191A4F100F744B9 /* LCCKProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F0F96DA2191A4F100F744B9 /* LCCKProgressHUD.m */; };
+		2F153E55225C477D00020904 /* DXChatFaceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F153E54225C477D00020904 /* DXChatFaceManager.m */; };
+		2F153E58225C4A5F00020904 /* emoji.db in Resources */ = {isa = PBXBuildFile; fileRef = 2F153E57225C47B100020904 /* emoji.db */; };
+		2F153E5C225C701400020904 /* DXFaceCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F153E5A225C701400020904 /* DXFaceCollectionCell.m */; };
+		2F153E5D225C701400020904 /* DXFaceCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2F153E5B225C701400020904 /* DXFaceCollectionCell.xib */; };
 		2F3E66B8221C061800080193 /* DXChatFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F3E66B7221C061800080193 /* DXChatFile.m */; };
 		2F4EBFF9213FD4CF00433B5A /* DXBaseChatCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F4EBFF8213FD4CF00433B5A /* DXBaseChatCell.m */; };
 		2F53EF8C219015E400635D2E /* DXChatListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F53EF8B219015E400635D2E /* DXChatListViewController.m */; };
@@ -22,6 +26,7 @@
 		2F794BEA214A515E0089E0EB /* DXChatUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F794BE9214A515E0089E0EB /* DXChatUser.m */; };
 		2F94E2DD212FE522004FD57F /* DXFaceView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F94E2DC212FE522004FD57F /* DXFaceView.m */; };
 		2F94E2E0212FE52B004FD57F /* DXMoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F94E2DF212FE52B004FD57F /* DXMoreView.m */; };
+		2F9C8134227E78410069C47F /* ChatImages.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2F9C8133227E78410069C47F /* ChatImages.bundle */; };
 		2FC42D742249B7B20049E275 /* DXChatDBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FC42D732249B7B20049E275 /* DXChatDBManager.m */; };
 		2FC42D772249B7F50049E275 /* DXChatFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FC42D762249B7F50049E275 /* DXChatFileManager.m */; };
 		2FCB977D2248D72100D06FC9 /* DXChatManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FCB977C2248D72100D06FC9 /* DXChatManager.m */; };
@@ -46,6 +51,12 @@
 		2F0F96D821919B2500F744B9 /* DXRecord.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DXRecord.m; sourceTree = "<group>"; };
 		2F0F96DA2191A4F100F744B9 /* LCCKProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCCKProgressHUD.m; sourceTree = "<group>"; };
 		2F0F96DB2191A4F100F744B9 /* LCCKProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCCKProgressHUD.h; sourceTree = "<group>"; };
+		2F153E53225C477D00020904 /* DXChatFaceManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DXChatFaceManager.h; sourceTree = "<group>"; };
+		2F153E54225C477D00020904 /* DXChatFaceManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DXChatFaceManager.m; sourceTree = "<group>"; };
+		2F153E57225C47B100020904 /* emoji.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = emoji.db; sourceTree = "<group>"; };
+		2F153E59225C701400020904 /* DXFaceCollectionCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DXFaceCollectionCell.h; sourceTree = "<group>"; };
+		2F153E5A225C701400020904 /* DXFaceCollectionCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DXFaceCollectionCell.m; sourceTree = "<group>"; };
+		2F153E5B225C701400020904 /* DXFaceCollectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DXFaceCollectionCell.xib; sourceTree = "<group>"; };
 		2F3E66B6221C061800080193 /* DXChatFile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DXChatFile.h; sourceTree = "<group>"; };
 		2F3E66B7221C061800080193 /* DXChatFile.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DXChatFile.m; sourceTree = "<group>"; };
 		2F4EBFF7213FD4CF00433B5A /* DXBaseChatCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DXBaseChatCell.h; sourceTree = "<group>"; };
@@ -67,6 +78,7 @@
 		2F94E2DC212FE522004FD57F /* DXFaceView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DXFaceView.m; sourceTree = "<group>"; };
 		2F94E2DE212FE52B004FD57F /* DXMoreView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DXMoreView.h; sourceTree = "<group>"; };
 		2F94E2DF212FE52B004FD57F /* DXMoreView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DXMoreView.m; sourceTree = "<group>"; };
+		2F9C8133227E78410069C47F /* ChatImages.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ChatImages.bundle; sourceTree = "<group>"; };
 		2FC42D6F2249B4F10049E275 /* DXChatMessageManagerProtocaol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DXChatMessageManagerProtocaol.h; sourceTree = "<group>"; };
 		2FC42D702249B5080049E275 /* DXChatSessionManagerProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DXChatSessionManagerProtocol.h; sourceTree = "<group>"; };
 		2FC42D712249B51C0049E275 /* DXChatFileManagerProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DXChatFileManagerProtocol.h; sourceTree = "<group>"; };
@@ -159,6 +171,9 @@
 				2F58FFC2212CEF780062E885 /* DXChatToolBar.m */,
 				2F94E2DB212FE522004FD57F /* DXFaceView.h */,
 				2F94E2DC212FE522004FD57F /* DXFaceView.m */,
+				2F153E59225C701400020904 /* DXFaceCollectionCell.h */,
+				2F153E5A225C701400020904 /* DXFaceCollectionCell.m */,
+				2F153E5B225C701400020904 /* DXFaceCollectionCell.xib */,
 				2F94E2DE212FE52B004FD57F /* DXMoreView.h */,
 				2F94E2DF212FE52B004FD57F /* DXMoreView.m */,
 				2F53EF9021904BFA00635D2E /* DXMoreViewItem.h */,
@@ -188,6 +203,7 @@
 		2F01AAC52244B93A00912160 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				2F153E56225C47AB00020904 /* FaceDB */,
 				2F01AAC62244B98D00912160 /* DXChatRecord */,
 			);
 			path = Vendor;
@@ -227,8 +243,26 @@
 				2FC42D732249B7B20049E275 /* DXChatDBManager.m */,
 				2FC42D752249B7F50049E275 /* DXChatFileManager.h */,
 				2FC42D762249B7F50049E275 /* DXChatFileManager.m */,
+				2F153E53225C477D00020904 /* DXChatFaceManager.h */,
+				2F153E54225C477D00020904 /* DXChatFaceManager.m */,
 			);
 			path = Manager;
+			sourceTree = "<group>";
+		};
+		2F153E56225C47AB00020904 /* FaceDB */ = {
+			isa = PBXGroup;
+			children = (
+				2F153E57225C47B100020904 /* emoji.db */,
+			);
+			path = FaceDB;
+			sourceTree = "<group>";
+		};
+		2F9C811C227E72DB0069C47F /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				2F9C8133227E78410069C47F /* ChatImages.bundle */,
+			);
+			path = Resource;
 			sourceTree = "<group>";
 		};
 		2FE7F9E32123B62F00C680CE = {
@@ -278,6 +312,7 @@
 				2F01AAC82244B9DB00912160 /* Manager */,
 				2F01AAC72244B9AE00912160 /* Client */,
 				2F01AAC52244B93A00912160 /* Vendor */,
+				2F9C811C227E72DB0069C47F /* Resource */,
 			);
 			path = DXChatKit;
 			sourceTree = "<group>";
@@ -358,7 +393,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2F153E58225C4A5F00020904 /* emoji.db in Resources */,
 				2F6BB7DA21366E2600ACB814 /* DXMoreCollectionCell.xib in Resources */,
+				2F9C8134227E78410069C47F /* ChatImages.bundle in Resources */,
+				2F153E5D225C701400020904 /* DXFaceCollectionCell.xib in Resources */,
 				2FE7F9FC2123B63000C680CE /* LaunchScreen.storyboard in Resources */,
 				2FE7F9F92123B63000C680CE /* Assets.xcassets in Resources */,
 				2FE7F9F72123B62F00C680CE /* Main.storyboard in Resources */,
@@ -422,6 +460,8 @@
 				2FFAB6F921421E2700844AA8 /* DXChatImageCell.m in Sources */,
 				2F94E2E0212FE52B004FD57F /* DXMoreView.m in Sources */,
 				2F0F96DC2191A4F100F744B9 /* LCCKProgressHUD.m in Sources */,
+				2F153E55225C477D00020904 /* DXChatFaceManager.m in Sources */,
+				2F153E5C225C701400020904 /* DXFaceCollectionCell.m in Sources */,
 				2F0F96D921919B2500F744B9 /* DXRecord.m in Sources */,
 				2FE7F9FF2123B63000C680CE /* main.m in Sources */,
 				2F6BB7D921366E2600ACB814 /* DXMoreCollectionCell.m in Sources */,

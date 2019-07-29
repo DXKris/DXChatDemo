@@ -8,6 +8,7 @@
 
 #import "DXChatListViewController.h"
 #import "DXChatViewController.h"
+#import "DXChatFaceManager.h"
 
 #import "DXChatSession.h"
 
@@ -36,6 +37,16 @@
     }];
     
     [[DXChatClient share].sessionManager addDelegate:self];
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"创建群聊" style:0 target:self action:@selector(_clickRightBarButton)];
+}
+
+- (void)_clickRightBarButton {
+    [DXNetWorkInstance postWithMethod:@"CreateGroup" parameters:@{} success:^(id obj, NSString *successMsg) {
+        
+    } failure:^(NSError *error) {
+        
+    }];
 }
 
 - (void)_loadData {
@@ -60,7 +71,7 @@
     
     UITableViewCell *cell = [UITableViewCell new];
     
-    cell.textLabel.text = session.lastMessage.Content;
+    cell.textLabel.attributedText = [[DXChatFaceManager share] getAttributedStringWithText:session.lastMessage.Content];
     
     return cell;
 }

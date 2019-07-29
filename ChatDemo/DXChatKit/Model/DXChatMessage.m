@@ -12,16 +12,27 @@
 
 MJLogAllIvars
 
-+ (instancetype)messageWithContent:(NSString *)content srcUserId:(NSString *)srcUserId dstUserId:(NSString *)dstUserId contentType:(DXChatMessageType)contentType groupId:(NSString *)groupId {
++ (instancetype)messageWithContent:(NSString *)content sessionId:(NSString *)sessionId contentType:(DXChatMessageType)contentType chatRoomType:(DXChatRoomType)chatRoomType {
     DXChatMessage *message = [DXChatMessage new];
     message.MessageID = [NSString stringWithFormat:@"%@%ld", [NSUUID UUID].UUIDString, (long)([[NSDate date] timeIntervalSince1970] * 1000)];
     message.DateTime = (long)([[NSDate date] timeIntervalSince1970] * 1000);
     message.status = DXChatMessageStatusSending;
     message.Content = content;
-    message.SrcUserID = srcUserId;
-    message.DstUserID = dstUserId;
+    message.SrcUserID = [[DXChatClient share].loginManger getCurrentUserClientId];
+    message.sessionId = sessionId;
     message.ContentType = contentType;
-    message.GroupID = groupId;
+    message.isRead = YES;
+    
+    switch (chatRoomType) {
+        case DXChatRoomTypeSingle:
+            message.DstUserID = sessionId;
+            break;
+        case DXChatRoomTypeGroup:
+            message.GroupID = sessionId;
+            break;
+        default:
+            break;
+    }
     return message;
 }
 
@@ -52,7 +63,7 @@ MJLogAllIvars
     }
     
     //发送或接收
-    if ([message.SrcUserID isEqualToString:@"40288581653cab8201653cc96f3a0039"]) {
+    if ([message.SrcUserID isEqualToString:[[DXChatClient share].loginManger getCurrentUserClientId]]) {
         [mulStr appendFormat:@"_%ld", (long)DXChatMessageFromSend];
     }else {
         [mulStr appendFormat:@"_%ld", (long)DXChatMessageFromReceive];

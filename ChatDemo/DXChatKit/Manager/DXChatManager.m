@@ -77,6 +77,10 @@
     }];
 }
 
+- (NSString *)getCurrentUserClientId {
+    return self.session.clientId;
+}
+
 #pragma mark - DXChatMessageManager
 - (void)addDelegate:(id<DXChatMessageManagerDelegate>)delegate {
     DXChatManagerDelegateBridge *bridge = [DXChatManagerDelegateBridge new];
@@ -108,18 +112,22 @@
         }
     }else {
         
-        message.sessionId = (message.GroupID.length == 0 ? message.SrcUserID : message.GroupID);
+        if ([message.SrcUserID isEqualToString:self.session.clientId] && message.GroupID.length > 0) { //过滤自己发送的群消息
+            return;
+        }
         
-        //插入消息到数据库
-        [[DXChatClient share].sessionManager insertMessage:message];
+        message.sessionId = message.GroupID.length == 0 ? message.SrcUserID : message.GroupID;
         
         //发送消息收到回执
         DXChatMessage *receiptMessage = [DXChatMessage new];
         receiptMessage.ContentType = DXChatMessageTypeReceipt;
         receiptMessage.MessageID = message.MessageID;
         receiptMessage.DateTime = message.DateTime;
+        receiptMessage.sessionId = @"TextCenter";
         [self sendMessage:receiptMessage];
         
+        //插入消息到数据库
+        [[DXChatClient share].sessionManager insertMessage:message];
         //收到消息代理
         for (DXChatManagerDelegateBridge *bridge in self.delegates) {
             if (bridge.delegate && [bridge.delegate respondsToSelector:@selector(receiveMessage:)]) {
@@ -135,11 +143,58 @@
     }];
 }
 
+- (void)connected:(MQTTSession *)session {
+    [self _getUnreadMessagesWithStartTime:0 jsonIDList:nil];
+}
+
+- (void)_getUnreadMessagesWithStartTime:(NSInteger)startTime jsonIDList:(NSString *)jsonIDList {
+    
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    [parameters setObject:self.session.clientId forKey:@"UserID"];
+    [parameters setObject:@(50) forKey:@"PageSize"];
+    if (startTime > 0) {
+        [parameters setObject:@(startTime) forKey:@"StartTime"];
+    }
+    
+    if (jsonIDList.length > 0) {
+        [parameters setObject:jsonIDList forKey:@"JsonIDList"];
+    }
+    
+    [DXNetWorkInstance chatPostWithMethod:@"GetUnreadChatMessage" parameters:[parameters copy] success:^(id obj, NSString *successMsg) {
+        
+        NSArray *unreadMessages = [[DXChatMessage mj_objectArrayWithKeyValuesArray:obj] copy];
+        
+        if (unreadMessages.count != 0) {
+            
+            NSMutableArray *tempArray = [NSMutableArray array];
+            for (DXChatMessage *message in unreadMessages) {
+                
+                message.sessionId = message.GroupID.length == 0 ? message.SrcUserID : message.GroupID;
+                
+                //插入消息到数据库
+                [[DXChatClient share].sessionManager insertMessage:message];
+                //收到消息代理
+                for (DXChatManagerDelegateBridge *bridge in self.delegates) {
+                    if (bridge.delegate && [bridge.delegate respondsToSelector:@selector(receiveMessage:)]) {
+                        [bridge.delegate receiveMessage:message];
+                    }
+                }
+                
+                [tempArray addObject:message.MessageID];
+            }
+            DXChatMessage *lastUnreadMessage = unreadMessages.lastObject;
+            [self _getUnreadMessagesWithStartTime:lastUnreadMessage.DateTime jsonIDList:tempArray.mj_JSONString];
+        }
+    } failure:^(NSError *error) {
+        
+    }];
+}
+
 #pragma mark - Getter
 - (MQTTCFSocketTransport *)transport {
     if (!_transport) {
         _transport = [[MQTTCFSocketTransport alloc] init];
-        _transport.host = @"192.168.0.138";
+        _transport.host = @"192.168.0.5";
         _transport.port = 1883;
     }
     return _transport;

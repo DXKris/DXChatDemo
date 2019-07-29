@@ -30,6 +30,8 @@ typedef NS_ENUM(NSInteger, DXUploadType) {
 
 - (void)postWithMethod:(NSString *)method parameters:(id)parameters success:(SuccessBlock)success failure:(FailureBlock)failure;
 
+- (void)chatPostWithMethod:(NSString *)method parameters:(id)parameters success:(SuccessBlock)success failure:(FailureBlock)failure;
+
 - (void)setToken:(NSString *)token;
 
 @end

@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+@class DXChatFaceManager;
+
 typedef NS_ENUM(NSInteger, DXChatToolBarShowType) {
     DXChatToolBarShowTypeInit = 0, //默认状态
     DXChatToolBarShowTypeKeyBorad, //展开键盘
@@ -33,6 +35,13 @@ typedef NS_ENUM(NSInteger, DXChatToolBarShowType) {
 - (void)showKeyboard:(BOOL)show;
 
 - (void)initToolBar;
+
+/**
+ 点击表情
+
+ @param faceName 表情名
+ */
+- (void)selectFace:(NSString *)faceName;
 
 @end
 
